@@ -2,9 +2,9 @@ spring:
   application:
     name: meeting-app
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT}/${DB_NAME:meeting_app}?characterEncoding=UTF-8&createDatabaseIfNotExist=true
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:meeting_app}?characterEncoding=UTF-8&createDatabaseIfNotExist=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:toor}
     driver-class-name: com.mysql.jdbc.Driver
     platform: mysql
   jpa:
