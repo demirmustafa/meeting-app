@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: meeting-app
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT}/${DB_NAME:meeting_app}?characterEncoding=UTF-8&createDatabaseIfNotExist=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.jdbc.Driver
+    platform: mysql
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 9090
+
+management:
+  server:
+    port: 5${server.port}
+  endpoints:
+    web:
+      exposure:
+        include: '*'
