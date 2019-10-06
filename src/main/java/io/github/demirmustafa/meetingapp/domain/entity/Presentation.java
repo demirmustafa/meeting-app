@@ -26,7 +26,7 @@ public class Presentation {
     private Long minutes;
 
     @Column(nullable = false)
-    private PresentationTimeType presentationTimeType;
+    private PresentationTimeType presentationTimeType = PresentationTimeType.MINUTE;
 
     @JoinColumn(name = "speaker_id", nullable = false)
     @ManyToOne
@@ -34,7 +34,7 @@ public class Presentation {
 
     public Presentation(CreatePresentationRequest request, Speaker speaker) {
         this.name = request.getName();
-        this.minutes = request.getTime();
+        this.minutes = request.getMinutes();
         this.presentationTimeType = request.getTimeType();
         this.speaker = speaker;
     }
