@@ -1,5 +1,6 @@
 package io.github.demirmustafa.meetingapp.api.controller;
 
+import io.github.demirmustafa.meetingapp.api.MeetingApi;
 import io.github.demirmustafa.meetingapp.api.model.request.CreateNetworkingEventRequest;
 import io.github.demirmustafa.meetingapp.api.model.response.CreateNetworkingEventResponse;
 import io.github.demirmustafa.meetingapp.service.NetworkingEventService;
@@ -8,9 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@MeetingApi
 @RequiredArgsConstructor
 public class NetworkingEventController {
 

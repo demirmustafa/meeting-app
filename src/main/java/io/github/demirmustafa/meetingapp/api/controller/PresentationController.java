@@ -1,14 +1,14 @@
 package io.github.demirmustafa.meetingapp.api.controller;
 
+import io.github.demirmustafa.meetingapp.api.MeetingApi;
 import io.github.demirmustafa.meetingapp.api.model.request.CreatePresentationRequest;
 import io.github.demirmustafa.meetingapp.api.model.response.CreatePresentationResponse;
 import io.github.demirmustafa.meetingapp.service.PresentationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@MeetingApi
 @RequiredArgsConstructor
 public class PresentationController {
 
