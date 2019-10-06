@@ -3,10 +3,15 @@ package io.github.demirmustafa.meetingapp.api.controller;
 import io.github.demirmustafa.meetingapp.api.MeetingApi;
 import io.github.demirmustafa.meetingapp.api.model.request.CreatePresentationRequest;
 import io.github.demirmustafa.meetingapp.api.model.response.CreatePresentationResponse;
+import io.github.demirmustafa.meetingapp.api.validator.CreatePresentationRequestValidator;
 import io.github.demirmustafa.meetingapp.service.PresentationService;
+import io.github.demirmustafa.meetingapp.validation.annotation.Valid;
+import io.github.demirmustafa.meetingapp.validation.annotation.Validator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @MeetingApi
 @RequiredArgsConstructor
@@ -15,7 +20,9 @@ public class PresentationController {
     private final PresentationService presentationService;
 
     @PostMapping("/presentations")
-    public CreatePresentationResponse create(@RequestBody CreatePresentationRequest request) {
+    @ResponseStatus(HttpStatus.CREATED)
+    @Validator(validator = CreatePresentationRequestValidator.class)
+    public CreatePresentationResponse create(@Valid @RequestBody CreatePresentationRequest request) {
         return presentationService.create(request);
     }
 }
