@@ -1,8 +1,10 @@
 package io.github.demirmustafa.meetingapp.validation.exception;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class FieldNotValidException extends RuntimeException {
 
     private String fieldName;
