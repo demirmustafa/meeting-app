@@ -3,7 +3,10 @@ package io.github.demirmustafa.meetingapp.api.controller;
 import io.github.demirmustafa.meetingapp.api.model.request.CreateSpeakerRequest;
 import io.github.demirmustafa.meetingapp.api.model.resource.SpeakerResource;
 import io.github.demirmustafa.meetingapp.api.model.response.CreateSpeakerResponse;
+import io.github.demirmustafa.meetingapp.api.validator.CreateSpeakerRequestValidator;
 import io.github.demirmustafa.meetingapp.service.SpeakerService;
+import io.github.demirmustafa.meetingapp.validation.annotation.Valid;
+import io.github.demirmustafa.meetingapp.validation.annotation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +22,8 @@ public class SpeakerController {
     private final SpeakerService speakerService;
 
     @PostMapping("/speakers")
-    public CreateSpeakerResponse create(@RequestBody CreateSpeakerRequest request) {
+    @Validator(validator = CreateSpeakerRequestValidator.class)
+    public CreateSpeakerResponse create(@Valid @RequestBody CreateSpeakerRequest request) {
         return speakerService.create(request);
     }
 
