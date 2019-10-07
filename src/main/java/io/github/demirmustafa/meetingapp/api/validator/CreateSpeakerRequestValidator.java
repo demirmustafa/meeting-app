@@ -22,6 +22,7 @@ public class CreateSpeakerRequestValidator extends BaseValidator<CreateSpeakerRe
     public void validate(CreateSpeakerRequest model) {
         if (Objects.isNull(model)) {
             fieldNotValid("request body", "err.request.invalid", messages.getMessage("err.request.invalid"));
+            return;
         }
 
         if (isNullOrEmpty(model.getName())) {
