@@ -17,7 +17,7 @@ public class CreatePresentationRequest {
     @NotNull
     private String name;
 
-    private Long minutes;
+    private Integer minutes;
 
     @NotNull
     private PresentationTimeType timeType;

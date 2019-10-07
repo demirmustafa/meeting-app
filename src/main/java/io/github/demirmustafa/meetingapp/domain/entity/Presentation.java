@@ -23,7 +23,7 @@ public class Presentation {
     private String name;
 
     @Column(nullable = false)
-    private Long minutes;
+    private Integer minutes;
 
     @Column(nullable = false)
     private PresentationTimeType presentationTimeType = PresentationTimeType.MINUTE;
