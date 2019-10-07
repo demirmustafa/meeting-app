@@ -1,4 +1,4 @@
-package io.github.demirmustafa.meetingapp.domain.model;
+package io.github.demirmustafa.meetingapp.api.model.resource;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Conference {
+public class ConferenceResource {
 
-    private List<Track> tracks;
+    private List<TrackResource> tracks;
 }
