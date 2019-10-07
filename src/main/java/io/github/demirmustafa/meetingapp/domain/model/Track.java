@@ -1,6 +1,6 @@
 package io.github.demirmustafa.meetingapp.domain.model;
 
-import io.github.demirmustafa.meetingapp.commons.DateOperations;
+import io.github.demirmustafa.meetingapp.utils.DateOperations;
 import io.github.demirmustafa.meetingapp.domain.entity.Presentation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

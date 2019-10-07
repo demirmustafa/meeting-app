@@ -1,4 +1,4 @@
-package io.github.demirmustafa.meetingapp.commons;
+package io.github.demirmustafa.meetingapp.utils;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
