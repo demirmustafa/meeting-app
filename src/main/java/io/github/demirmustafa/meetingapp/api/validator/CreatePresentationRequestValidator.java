@@ -23,6 +23,7 @@ public class CreatePresentationRequestValidator extends BaseValidator<CreatePres
     public void validate(CreatePresentationRequest model) {
         if (Objects.isNull(model)) {
             fieldNotValid("err.request.invalid", messages.getMessage("err.request.invalid"));
+            return;
         }
 
         if (isNullOrEmpty(model.getName())) {
@@ -34,7 +35,7 @@ public class CreatePresentationRequestValidator extends BaseValidator<CreatePres
         }
 
         if (PresentationTimeType.MINUTE.equals(model.getTimeType()) && (model.getMinutes() == null || 0L == model.getMinutes())) {
-            fieldNotValid("time", "err.presentation.time.empty", messages.getMessage("err.presentation.time.empty"));
+            fieldNotValid("minutes", "err.presentation.time.empty", messages.getMessage("err.presentation.time.empty"));
         }
 
         if (model.getSpeakerId() == null || 0L == model.getSpeakerId()) {
