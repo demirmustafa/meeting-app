@@ -29,7 +29,11 @@ public class ConferenceService {
     private final PresentationResponseMapper presentationResponseMapper;
 
     public ConferenceResource get() {
-        Map<PresentationTimeType, List<Presentation>> presentationsByType = presentationRepository.findAll()
+        List<Presentation> all = presentationRepository.findAll();
+        if (all.isEmpty()) {
+            return ConferenceResource.builder().build();
+        }
+        Map<PresentationTimeType, List<Presentation>> presentationsByType = all
                 .stream()
                 .collect(Collectors.groupingBy(Presentation::getPresentationTimeType));
 
