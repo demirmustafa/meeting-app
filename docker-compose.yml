@@ -6,9 +6,11 @@ services:
     env_file:
       - env.list
   meeting-app-be:
-    image: meeting-app
+    image: javalog/meeting-app
     restart: "on-failure"
     container_name: "meeting-app-be"
+    ports:
+      - "9090:9090"
     env_file:
       - env.list
     depends_on:
