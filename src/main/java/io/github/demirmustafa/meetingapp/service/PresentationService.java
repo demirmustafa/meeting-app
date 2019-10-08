@@ -4,6 +4,8 @@ import io.github.demirmustafa.meetingapp.api.model.request.CreatePresentationReq
 import io.github.demirmustafa.meetingapp.api.model.response.CreatePresentationResponse;
 import io.github.demirmustafa.meetingapp.domain.entity.Presentation;
 import io.github.demirmustafa.meetingapp.domain.entity.Speaker;
+import io.github.demirmustafa.meetingapp.exception.BusinessException;
+import io.github.demirmustafa.meetingapp.exception.FaultCode;
 import io.github.demirmustafa.meetingapp.mapper.PresentationResponseMapper;
 import io.github.demirmustafa.meetingapp.repository.PresentationRepository;
 import io.github.demirmustafa.meetingapp.repository.SpeakerRepository;
@@ -21,7 +23,7 @@ public class PresentationService {
     private final PresentationResponseMapper presentationResponseMapper;
 
     public CreatePresentationResponse create(CreatePresentationRequest request) {
-        Speaker speaker = speakerRepository.findById(request.getSpeakerId()).orElseThrow(() -> new RuntimeException("Speaker not found!")); //TODO BusinessException
+        Speaker speaker = speakerRepository.findById(request.getSpeakerId()).orElseThrow(() -> new BusinessException(FaultCode.PRESENTATION_SPEAKER_NOT_FOUND));
         Presentation presentation = new Presentation(request, speaker);
         Presentation saved = presentationRepository.save(presentation);
         return presentationResponseMapper.entity2CreateResponse(saved);
