@@ -1,12 +1,11 @@
 package io.github.demirmustafa.meetingapp.service;
 
 import io.github.demirmustafa.meetingapp.api.model.resource.*;
-import io.github.demirmustafa.meetingapp.domain.entity.NetworkingEvent;
 import io.github.demirmustafa.meetingapp.domain.entity.Presentation;
+import io.github.demirmustafa.meetingapp.domain.enums.PresentationTimeType;
 import io.github.demirmustafa.meetingapp.domain.model.Track;
 import io.github.demirmustafa.meetingapp.mapper.PresentationResponseMapper;
 import io.github.demirmustafa.meetingapp.mapper.SpeakerResponseMapper;
-import io.github.demirmustafa.meetingapp.repository.NetworkingEventRepository;
 import io.github.demirmustafa.meetingapp.repository.PresentationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,14 +24,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ConferenceService {
 
-    private final NetworkingEventRepository networkingEventRepository;
     private final PresentationRepository presentationRepository;
     private final SpeakerResponseMapper speakerResponseMapper;
     private final PresentationResponseMapper presentationResponseMapper;
 
     public ConferenceResource get() {
-        List<NetworkingEvent> networkingEvents = networkingEventRepository.findAll();
-        List<Presentation> presentations = presentationRepository.findAll();
+        Map<PresentationTimeType, List<Presentation>> presentationsByType = presentationRepository.findAll()
+                .stream()
+                .collect(Collectors.groupingBy(Presentation::getPresentationTimeType));
+
+        List<Presentation> presentations = presentationsByType.get(PresentationTimeType.MINUTE);
+        //List<Presentation> lightningTalks = presentationsByType.get(PresentationTimeType.LIGHTNING);
         List<Track> tracks = new ArrayList<>();
 
         Track track = new Track();
