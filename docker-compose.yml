@@ -1,0 +1,16 @@
+services:
+  meeting-app-db:
+    image: mysql:5.6
+    restart: "on-failure"
+    container_name: "meeting-app-db"
+    env_file:
+      - env.list
+  meeting-app-be:
+    image: meeting-app
+    restart: "on-failure"
+    container_name: "meeting-app-be"
+    env_file:
+      - env.list
+    depends_on:
+      - meeting-app-db
+version: "3.5"
