@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PresentationResource {
 
+    private Long id;
     private String name;
     private Integer minutes;
     private PresentationTimeType type;
