@@ -11,6 +11,7 @@ services:
     container_name: "meeting-app-be"
     ports:
       - "9090:9090"
+      - "59090:59090"
     env_file:
       - env.list
     depends_on:
