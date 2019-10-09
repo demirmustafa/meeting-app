@@ -29,33 +29,35 @@ public class ConferenceService {
     private final PresentationResponseMapper presentationResponseMapper;
 
     public ConferenceResource get() {
-        List<Presentation> all = presentationRepository.findAll();
-        if (all.isEmpty()) {
-            return ConferenceResource.builder().build();
+        List<Presentation> presentations = presentationRepository.findAllByPresentationTimeTypeIs(PresentationTimeType.MINUTE);
+        if (presentations.isEmpty()) {
+            return buildResource(new ArrayList<>());
         }
-        Map<PresentationTimeType, List<Presentation>> presentationsByType = all
-                .stream()
-                .collect(Collectors.groupingBy(Presentation::getPresentationTimeType));
-
-        List<Presentation> presentations = presentationsByType.get(PresentationTimeType.MINUTE);
-        //List<Presentation> lightningTalks = presentationsByType.get(PresentationTimeType.LIGHTNING);
         List<Track> tracks = new ArrayList<>();
 
         Track track = new Track();
         tracks.add(track);
         for (Presentation presentation : presentations) {
-            if (track.isBookableBeforeLaunch(presentation)) {
-                log.info("booked before launch: {}", presentation.getName());
-                track.bookBeforeLaunch(presentation);
-            } else if (track.isBookableAfterLaunch(presentation)) {
-                log.info("booked after launch: {}", presentation.getName());
-                track.bookAfterLaunch(presentation);
-            } else {
+            if (!track.isBookableAfterLaunch(presentation)) { //if presentation is not bookable, then create new track
                 track = new Track();
-                track.bookBeforeLaunch(presentation);
                 tracks.add(track);
             }
+            addPresentationToTrack(track, presentation);
         }
+        return buildResource(tracks);
+    }
+
+    void addPresentationToTrack(Track track, Presentation presentation) {
+        if (track.isBookableBeforeLaunch(presentation)) {
+            log.info("booked before launch: {}", presentation.getName());
+            track.bookBeforeLaunch(presentation);
+        } else {
+            log.info("booked after launch: {}", presentation.getName());
+            track.bookAfterLaunch(presentation);
+        }
+    }
+
+    ConferenceResource buildResource(List<Track> tracks) {
         return ConferenceResource.builder()
                 .tracks(
                         tracks.stream()
@@ -64,7 +66,7 @@ public class ConferenceService {
                 ).build();
     }
 
-    public TrackPresentationResource buildTrackPresentationResource(Map.Entry<Pair<LocalTime, LocalTime>, Presentation> entry) {
+    TrackPresentationResource buildTrackPresentationResource(Map.Entry<Pair<LocalTime, LocalTime>, Presentation> entry) {
         final LocalTime start = entry.getKey().getKey();
         final LocalTime end = entry.getKey().getValue();
         final Presentation presentation = entry.getValue();
@@ -78,7 +80,7 @@ public class ConferenceService {
                 .build();
     }
 
-    public TrackResource buildTrackResource(Track track) {
+    TrackResource buildTrackResource(Track track) {
         List<TrackPresentationResource> presentations = track.getPresentations().entrySet()
                 .stream()
                 .map(this::buildTrackPresentationResource)

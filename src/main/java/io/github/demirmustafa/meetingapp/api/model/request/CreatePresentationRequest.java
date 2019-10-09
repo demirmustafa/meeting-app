@@ -6,22 +6,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreatePresentationRequest {
 
-    @NotNull
     private String name;
 
     private Integer minutes;
 
-    @NotNull
     private PresentationTimeType timeType;
 
-    @NotNull
     private Long speakerId;
 }
