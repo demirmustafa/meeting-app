@@ -17,6 +17,7 @@ public class PresentationResponseMapper {
 
     public PresentationResource entity2Resource(Presentation entity, SpeakerResource speaker) {
         return PresentationResource.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .minutes(entity.getMinutes())
                 .type(entity.getPresentationTimeType())
